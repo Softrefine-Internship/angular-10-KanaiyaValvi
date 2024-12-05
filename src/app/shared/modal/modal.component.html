@@ -1,0 +1,11 @@
+<div
+  class="h-screen top-0 left-0 z-[9999] flex justify-center items-end sm:items-center w-screen bg-black/80 fixed"
+  (click)="onClose($event)"
+>
+  <div
+    clickstop-propagation
+    class="p-4 bg-white max-h-[85dvh] md:max-h-[90dvh] md:max-w-[50dvw] md:min-w-[50dvw] w-screen sm:w-auto rounded-t-md md:rounded-md"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

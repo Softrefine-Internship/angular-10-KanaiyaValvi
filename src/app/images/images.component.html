@@ -1,0 +1,89 @@
+<app-view-image></app-view-image>
+<app-edit-image></app-edit-image>
+<app-delete-image></app-delete-image>
+<div *ngIf="images.length > 0" class="p-4 md:px-10">
+  <div
+    class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+  >
+    <div
+      class="group aspect-square min-h-36 cursor-pointer bg-red-500 rounded overflow-hidden relative hover:after:content-[''] after:w-full after:h-full hover:after:bg-black/50 hover:after:absolute hover:after:top-0 hover:after:left-0 transition duration-[.4s] hover:after:transition hover:after:duration-[.4s] hover:after:ease-in-out"
+      *ngFor="let img of images"
+      (click)="onImageView(img)"
+    >
+      <div class="absolute flex gap-2 z-10 left-0 p-2">
+        <span
+          class="text-[12px] rounded-full px-[1rem] py-1 font-semibold bg-red-600 text-white"
+          >{{ img.tags[0] }}</span
+        >
+        <span
+          *ngIf="img.tags.length > 1"
+          class="text-[12px] rounded-full px-[1rem] py-1 font-semibold bg-red-600 text-white"
+          >+{{ img.tags.slice(1, img.tags.length).length }}</span
+        >
+      </div>
+      <div class="md:invisible duration-100 transition  group-hover:visible flex flex-col gap-1 absolute z-10 right-0 p-2">
+        <button
+          clickstop-propagation
+           class="bg-white/50 hover:bg-white/80 transition duration-[.2s] p-2 rounded font-semibold"
+          (click)="onEdit(img)"
+        >
+          <img
+            class="h-[24px] w-[24px]"
+            src="../../assets/images/edit.svg"
+            alt=""
+            srcset=""
+          />
+        </button>
+        <button
+          clickstop-propagation
+          class="bg-white/50 hover:bg-white/80 transition duration-[.2s] p-2 rounded font-semibold"
+          (click)="onDeleteImage(img)"
+        >
+          <img
+            class="h-[24px] w-[24px]"
+            src="../../assets/images/delete.svg"
+            alt=""
+            srcset=""
+          />
+        </button>
+        <a
+          href="{{ img.imageUrl }}"
+          download="{{ img.imageName }}"
+          clickstop-propagation
+           class="bg-white/50 hover:bg-white/80 transition duration-[.2s] p-2 rounded font-semibold"
+        >
+          <img
+            class="h-[24px] w-[24px]"
+            src="../../assets/images/download.svg"
+            alt=""
+            srcset=""
+          />
+        </a>
+      </div>
+
+      <img
+        class="object-cover h-full w-full"
+        [src]="img.imageUrl"
+        [alt]="img.imageName"
+      />
+      <div
+        class="absolute z-20 bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent left-0 px-2 py-4"
+      >
+        <p class="text-xl font-semibold text-white capitalize">
+          {{ img.imageName }}
+        </p>
+        <p class="text-sm font-semibold text-white capitalize">
+          {{ img.date | date }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="images.length === 0">
+  <div>
+    <h1 class="text-center text-4xl py-6 font-semibold text-slate-600">
+      No Data Available
+    </h1>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<app-modal *ngIf="image" (close)="onClose()"
+  ><div>
+    <div class="mb-2 flex items-center justify-between">
+      <span class="font-semibold">View Image</span>
+      <span class="cursor-pointer" (click)="onClose()"
+        ><img
+          class="h-[24px] w-[24px]"
+          src="../../../assets/images/close.svg"
+          alt="close"
+      /></span>
+    </div>
+    <div
+      class="grid h-full grid-rows-[1fr,auto] grid-cols-1 md:grid-cols-[auto,1fr] gap-4"
+    >
+      <div
+        class="rounded  max-h-[40dvh] w-full aspect-square md:max-h-[15rem] min-h-[40dvh] md:min-h-[15rem]"
+      >
+        <img
+          class="h-full rounded w-full object-cover"
+          src="{{ image.imageUrl }}"
+          alt="{{ image.imageName }}"
+        />
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="text-slate-900 text-2xl capitalize">
+          <span class="font-semibold">Name: </span>{{ image.imageName }}
+        </div>
+        <div class="flex items-start">
+          <div class="flex gap-2">
+            <span class="font-semibold">Tags: </span>
+            <div class="flex gap-2 flex-wrap">
+              <span
+                class="py-1 px-[1rem] bg-red-600 text-white rounded-full font-semibold text-[12px]"
+                *ngFor="let tag of tagFeatures.tags"
+                >{{ tag }}</span
+              >
+              <ng-container *ngIf="isTagsOpen">
+                <span
+                  class="py-1 px-[1rem] bg-red-600 text-white rounded-full font-semibold text-[12px]"
+                  *ngFor="let tag of tagFeatures.moreTag"
+                  >{{ tag }}</span
+                >
+              </ng-container>
+              <span
+                class="py-1 px-[1rem] bg-red-600 text-white rounded-full font-semibold text-[12px] cursor-pointer"
+                *ngIf="!isTagsOpen && image.tags.length > 2"
+                (click)="showTags()"
+              >
+                +{{ tagFeatures.moreTag?.length }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <span class="text-gray-500 text-sm py-1">{{ image.date | date }}</span>
+      </div>
+    </div>
+  </div></app-modal
+>
